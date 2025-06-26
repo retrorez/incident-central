@@ -3,7 +3,14 @@ package com.incidentcentral.incident_central_backend.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.incidentcentral.incident_central_backend.model.Incident;
 import com.incidentcentral.incident_central_backend.service.IncidentService;
@@ -39,12 +46,12 @@ public class IncidentController {
         return ResponseEntity.ok(saved);
     }
 
-    // Delete an incident
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteIncident(@PathVariable Long id) {
-        if (!incidentService.deleteIncident(id)) {
-            return ResponseEntity.notFound().build();
+        // Delete an incident
+        @DeleteMapping("/{id}")
+        public ResponseEntity<?> deleteIncident(@PathVariable Long id) {
+            if (!incidentService.deleteIncident(id)) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok().build();
         }
-        return ResponseEntity.ok().build();
     }
-}

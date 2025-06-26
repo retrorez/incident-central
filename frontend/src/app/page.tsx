@@ -50,10 +50,22 @@ export default function Home() {
     }
   };
 
-  const handleDelete = (id: number) => {
-    // Placeholder for delete until wired in
+ const handleDelete = async (id: number) => {
+  try {
+    const response = await fetch(`http://localhost:8080/api/incidents/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Delete failed");
+    }
+
+    // Update local state if delete was successful
     setIncidents((prev) => prev.filter((incident) => incident.id !== id));
-  };
+  } catch (err) {
+    console.error("Error deleting incident:", err);
+  }
+};
 
   return (
     <div className="min-h-screen bg-gray-700 p-10 text-white">
