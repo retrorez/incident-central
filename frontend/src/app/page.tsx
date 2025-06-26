@@ -16,6 +16,20 @@ type Incident = {
 
 export default function Home() {
   const [incidents, setIncidents] = useState<Incident[]>([]);
+  useEffect(() => {
+  const fetchIncidents = async () => {
+    try {
+      const res = await fetch("http://localhost:8080/api/incidents");
+      const data = await res.json();
+      setIncidents(data);
+    } catch (err) {
+      console.error("Failed to fetch incidents:", err);
+    }
+  };
+
+  fetchIncidents();
+}, []);
+
 
   const handleAddIncident = async (data: Omit<Incident, "id" | "timestamp">) => {
     try {
